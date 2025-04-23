@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* Umumiy stil */
+  .auth-container {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      background: white;
+  }
+  
+  .auth-title {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 28px;
+  }
+  
+  .auth-form .form-group {
+      margin-bottom: 20px;
+  }
+  
+  .auth-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+  }
+  
+  .auth-form input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s;
+  }
+  
+  .auth-form input:focus {
+      border-color: #ff6b00;
+      box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2);
+      outline: none;
+  }
+  
+  .auth-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #ff6b00;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+  }
+  
+  .auth-btn:hover {
+      background-color: #e05d00;
+      transform: translateY(-2px);
+  }
+  
+  .auth-links {
+      text-align: center;
+      margin-top: 20px;
+  }
+  
+  .auth-links a {
+      color: #ff6b00;
+      text-decoration: none;
+      font-weight: 600;
+  }
+  
+  .auth-links a:hover {
+      text-decoration: underline;
+  }
+  
+  .error-message {
+    color: #ff4d4d;
+    margin-top: 5px;
+    font-size: 14px;
+    list-style-type: none;
+    padding-left: 0;
+}
+  
+  /* Login sahifasi uchun maxsus stil */
+  .login-container {
+      background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+  }
+  
+  /* Register sahifasi uchun maxsus stil */
+  .register-container {
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+  }
+  
+  /* Responsive stil */
+  @media (max-width: 600px) {
+      .auth-container {
+          margin: 20px;
+          padding: 20px;
+      }
+  }
+</style>
+
+{% if request.path == '/user/login/' %}
+<!-- LOGIN (KIRISH) SAHIFASI -->
+<div class="auth-container login-container">
+    <h1 class="auth-title">Hisobingizga kiring</h1>
+    
+    <form method="POST" class="auth-form">
+        {% csrf_token %}
+        
+        {% if form.errors %}
+        <div class="error-message">
+            Foydalanuvchi nomi yoki parol noto'g'ri. Iltimos, qayta urunib ko'ring.
+        </div>
+        {% endif %}
+        
+        <div class="form-group">
+            <label for="username">Foydalanuvchi nomi</label>
+            <input type="text" id="username" name="username" required placeholder="Foydalanuvchi nomingizni kiriting">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Parol</label>
+            <input type="password" id="password" name="password" required placeholder="Parolingizni kiriting">
+        </div>
+        
+        <button type="submit" class="auth-btn">Kirish</button>
+        
+        <div class="auth-links">
+            <p>Hisobingiz yo'qmi? <a href="{% url 'register' %}">Ro'yxatdan o'tish</a></p>
+            <p><a href="{% url 'password_reset' %}">Parolni unutdingizmi?</a></p>
+        </div>
+    </form>
+</div>
+
+{% else %}
+<!-- REGISTER (RO'YXATDAN O'TISH) SAHIFASI -->
+<div class="auth-container register-container">
+    <h1 class="auth-title">Yangi hisob yarating</h1>
+    
+    <form method="POST" class="auth-form">
+        {% csrf_token %}
+        
+        {% if form.errors %}
+        <div class="error-message">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>
+                    {% if error == "The password is too similar to the username." %}
+                        Parol foydalanuvchi nomiga juda o'xshash. Boshqa parol tanlang.
+                    {% elif error == "This password is too short. It must contain at least 8 characters." %}
+                        Parol juda qisqa. Kamida 8 ta belgidan iborat bo'lishi kerak.
+                    {% elif error == "The two password fields didn't match." %}
+                        Kiritilgan parollar bir-biriga mos kelmadi.
+                    {% elif error == "A user with that username already exists." %}
+                        Bu foydalanuvchi nomi band. Boshqa nom tanlang.
+                    {% elif error == "Enter a valid email address." %}
+                        Iltimos, to'g'ri elektron pochta manzilini kiriting.
+                    {% elif error == "A user with that email already exists." %}
+                        Bu elektron pochta manzili allaqachon ro'yxatdan o'tgan.
+                    {% else %}
+                        {{ error }}
+                    {% endif %}
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="form-group">
+            <label for="username">Foydalanuvchi nomi</label>
+            <input type="text" id="username" name="username" required placeholder="Foydalanuvchi nomini tanlang">
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Elektron pochta</label>
+            <input type="email" id="email" name="email" required placeholder="Elektron pochtangizni kiriting">
+        </div>
+        
+        <div class="form-group">
+            <label for="password1">Parol</label>
+            <input type="password" id="password1" name="password1" required placeholder="Parol yarating (kamida 8 ta belgi)">
+        </div>
+        
+        <div class="form-group">
+            <label for="password2">Parolni tasdiqlash</label>
+            <input type="password" id="password2" name="password2" required placeholder="Parolni qayta kiriting">
+        </div>
+        
+        <button type="submit" class="auth-btn">Ro'yxatdan o'tish</button>
+        
+        <div class="auth-links">
+            <p>Allaqachon hisobingiz bormi? <a href="{% url 'login' %}">Kirish</a></p>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}

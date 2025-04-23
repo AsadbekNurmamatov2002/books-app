@@ -30,9 +30,13 @@ INSTALLED_APPS = [
     # myapps
     'books.apps.BooksConfig',
     'settingsite.apps.SettingsiteConfig',
+    "users.apps.UsersConfig",
 
 
 ]
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'user/login'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

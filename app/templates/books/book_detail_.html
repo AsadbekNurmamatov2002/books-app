@@ -2,53 +2,171 @@
 {% block content %}
 {% load static %}
 <style>
-  /* LIKE tugmasi */
+  /* LIKE tugmasi uchun stil */
+  .like-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0;
+  }
+  
   #like-button {
-      font-size: 20px;
-      padding: 10px 20px;
+      font-size: 24px;
+      padding: 8px 16px;
       border: none;
-      background: #ff4d4d;
-      color: white;
-      border-radius: 5px;
+      background: transparent;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s ease;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
   }
-
+  
   #like-button:hover {
-      background: #cc0000;
+      transform: scale(1.1);
+      background: rgba(255, 77, 77, 0.1);
   }
-
+  
+  #like-count {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      min-width: 20px;
+      text-align: center;
+  }
+  
   /* Emoji animatsiyasi */
   .like-animation {
-      position: absolute;
+      position: fixed;
       pointer-events: none;
       will-change: transform, opacity;
+      z-index: 1000;
+      animation: float-up 2s ease-out forwards;
+  }
+  
+  @keyframes float-up {
+      0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+      }
+      100% {
+          transform: translate(var(--tx), var(--ty)) scale(0);
+          opacity: 0;
+      }
+  }
+  
+  /* Yuklab olish tugmasi */
+  .price-cart__btn {
+      background: #ff6b00;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+  }
+  
+  .price-cart__btn:hover {
+      background: #e05d00;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+  }
+  
+  /* Kitob tasviri */
+  .img-main {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+  }
+  
+  .img-main:hover {
+      transform: scale(1.02);
+  }
+  
+  /* Asosiy kontent */
+  .item {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+  }
+  
+  .img {
+      flex: 1;
+      min-width: 300px;
+  }
+  
+  .price {
+      flex: 2;
+      min-width: 300px;
+  }
+  
+  .price-main__heading {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #333;
+  }
+  
+  .price-txt {
+      line-height: 1.6;
+      color: #555;
+      font-size: 16px;
+  }
+  
+  .price-btnbox {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+  }
+  
+  @media (max-width: 768px) {
+      .item {
+          flex-direction: column;
+          padding: 20px;
+      }
+      
+      .price-btnbox {
+          flex-direction: column;
+          align-items: flex-start;
+      }
   }
 </style>
 
 <!-- Kitob sahifasi -->
 <main class="item">
   <section class="img">
-    <img src="{{ book.image.url }}" alt="{{ book.title }}" class="img-main" />
+    <img src="{{ book.image.url }}" alt="{{ book.title }} kitob muqovasi" class="img-main" />
     <div class="price-btnbox">
-      <div class="price-btns">
-        <div style="display: flex; align-items: center;">
-          <span style="margin: 5px; padding: 2px; font-size: 20px;" id="like-count">{{ book.likes_count }}</span>
-          <button style="margin: 5px; padding: 2px;" id="like-button" onclick="toggleLike(event, {{ book.id }})">
-           <h1 id="liekes"> {% if is_liked %}❤️{% else %}🤍{% endif %}<h1>
-          </button>
-        </div>
+      <div class="like-container">
+        <button id="like-button" onclick="toggleLike(event, {{ book.id }})" aria-label="Kitobni yoqtirish">
+          <span id="liekes">{% if is_liked %}❤️{% else %}🤍{% endif %}</span>
+        </button>
+        <span id="like-count">{{ book.likes_count }}</span>
+        <span>yoqtirishlar</span>
       </div>
       <button class="price-cart__btn btn--orange">
-        <a style="margin:-2px; color: #fff;" href="{% url 'download_book' book.id %}" download>📥 Yuklab olish</a>
+        <a href="{% url 'download_book' book.id %}" download>📥 Yuklab olish</a>
       </button>
     </div>
   </section>
 
   <section class="price">
     <h1 class="price-main__heading">{{ book.title }}</h1>
-    <p class="price-txt">{{ book.body|safe }}</p>
-    
+    <div class="price-txt">{{ book.body|safe }}</div>
   </section>
 </main>
 
@@ -56,87 +174,75 @@
 <script>
   // CSRF token olish
   function getCSRFToken() {
-      let cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-          let cookie = cookies[i].trim();
-          if (cookie.startsWith("csrftoken=")) {
-              return cookie.substring("csrftoken=".length, cookie.length);
+      const csrfCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+      return csrfCookie ? csrfCookie.split('=')[1] : '';
+  }
+
+  // Emoji animatsiyasi
+  function createEmojiAnimation(buttonElement) {
+      const emojis = ["❤️", "💖", "✨", "🌟", "💫", "⭐", "🔥", "💥", "🎉", "👍"];
+      const emojiCount = 15;
+      const buttonRect = buttonElement.getBoundingClientRect();
+      const centerX = buttonRect.left + buttonRect.width / 2 + window.scrollX;
+      const centerY = buttonRect.top + buttonRect.height / 2 + window.scrollY;
+
+      for (let i = 0; i < emojiCount; i++) {
+          const emoji = document.createElement('div');
+          emoji.className = 'like-animation';
+          emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          
+          // Random angle and distance
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 50 + Math.random() * 100;
+          const tx = Math.cos(angle) * distance;
+          const ty = Math.sin(angle) * distance - 100;
+          
+          emoji.style.setProperty('--tx', `${tx}px`);
+          emoji.style.setProperty('--ty', `${ty}px`);
+          emoji.style.left = `${centerX}px`;
+          emoji.style.top = `${centerY}px`;
+          emoji.style.fontSize = `${20 + Math.random() * 15}px`;
+          
+          document.body.appendChild(emoji);
+          
+          // Remove after animation
+          setTimeout(() => emoji.remove(), 2000);
+      }
+  }
+
+  // Like tugmasi bosilganda
+  async function toggleLike(event, bookId) {
+      const likeButton = document.getElementById('liekes');
+      const likeCount = document.getElementById('like-count');
+      
+      try {
+          const response = await fetch(`/${bookId}/like/`, {
+              method: 'POST',
+              headers: {
+                  'X-CSRFToken': getCSRFToken(),
+                  'Content-Type': 'application/json',
+              },
+              credentials: 'same-origin'
+          });
+          
+          const data = await response.json();
+          
+          likeCount.textContent = data.likes_count;
+          likeButton.textContent = data.liked ? '❤️' : '🤍';
+          
+          if (data.liked) {
+              createEmojiAnimation(event.target);
           }
+          
+          // Kichik animatsiya
+          likeButton.parentElement.style.transform = 'scale(1.2)';
+          setTimeout(() => {
+              likeButton.parentElement.style.transform = 'scale(1)';
+          }, 300);
+          
+      } catch (error) {
+          console.error('Xatolik yuz berdi:', error);
       }
-      return "";
   }
-
-// Emoji animatsiyasi faqat tugmaning aniq joyidan chiqishi uchun
-function createButtonCenteredEmojiAnimation(buttonElement) {
-  let emojis = ["✨", "🌟", "💫", "⭐", "🔥", "💖", "💥", "🎆", "🎇", "🧨", "❤️", "💎"];
-  let emojiCount = 100; // Emoji soni
-
-  // Tugmaning aniq ekrandagi koordinatalarini olish
-  let buttonRect = buttonElement.getBoundingClientRect();
-  let x = buttonRect.left + window.scrollX + buttonRect.width / 2;
-  let y = buttonRect.top + window.scrollY + buttonRect.height / 2;
-
-  for (let i = 0; i < emojiCount; i++) {
-      let star = document.createElement("div");
-      star.classList.add("like-animation");
-      star.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-
-      let randomAngle = Math.random() * 2 * Math.PI; // 0 - 360 gradus
-      let randomDistance = Math.random() * 1000 + 500; // 20px - 70px radiusda harakat
-      let finalX = x + Math.cos(randomAngle) * randomDistance;
-      let finalY = y + Math.sin(randomAngle) * randomDistance;
-      let randomSize = Math.random() * 20 + 10; // Emoji o‘lchami 10px - 30px
-      let randomDuration = Math.random() * 20 + 10; // Emoji yo‘qolish vaqti 1-3s
-
-      star.style.position = "absolute";
-      star.style.left = `${x}px`;
-      star.style.top = `${y}px`;
-      star.style.fontSize = `${randomSize}px`;
-      star.style.opacity = "1";
-      star.style.transition = `opacity ${randomDuration}s ease-out, transform ${randomDuration}s ease-out`;
-
-      document.body.appendChild(star);
-
-      setTimeout(() => {
-          star.style.opacity = "0";
-          star.style.transform = `translate(${finalX - x}px, ${finalY - y}px) scale(1.2)`;
-          setTimeout(() => star.remove(), randomDuration * 1000);
-      }, 100);
-  }
-}
-
-// Like tugmachasini bosganda
-function toggleLike(event, bookId) {
-  let likeButton = document.getElementById("liekes");
-
-  fetch(`/${bookId}/like/`, {
-      method: "POST",
-      headers: {
-          "X-CSRFToken": getCSRFToken(),
-          "Content-Type": "application/json",
-      },
-      credentials: "same-origin",
-  })
-  .then(response => response.json())
-  .then(data => {
-      let likeCount = document.getElementById("like-count");
-
-      likeCount.innerText = data.likes_count;
-      likeButton.innerText = data.liked ? "❤️" : "🤍";
-      likeButton.classList.add("liked");
-
-      if (data.liked) {
-          createButtonCenteredEmojiAnimation(likeButton); // **Tugmaning markazidan emoji chiqariladi**
-      }
-
-      setTimeout(() => {
-          likeButton.classList.remove("liked");
-      }, 1000);
-  })
-  .catch(error => console.error("Xatolik:", error));
-}
-
-
-
 </script>
 {% endblock %}

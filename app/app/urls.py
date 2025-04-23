@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("", include("books.urls")),
+    path("user/", include("users.urls")),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')), 
 ]

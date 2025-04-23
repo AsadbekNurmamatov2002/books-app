@@ -21,10 +21,8 @@
         <div class="content">
           <h3>Kitoblar ruhingizni oziqlantiradi</h3>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum ipsam
-            et maxime libero inventore placeat illo, illum deserunt rem aperiam
-            fuga repudiandae distinctio quo odio sit perspiciatis vero
-            laudantium minima.
+            Kitoblar dunyosi sizni yangi bilimlar, hayotiy tajribalar va cheksiz ilhom manbalari bilan tanishtiradi. 
+            Bizning elektron kutubxonamizda siz istalgan janrdagi asarlarni topishingiz mumkin.
           </p>
           <a href="#populer" class="btn">Hozir xarid qiling!</a>
         </div>
@@ -54,30 +52,27 @@
           </div>
     
           <div class="content">
-            <h3>dunyodagi eng yaxshi kitob do'koni</h3>
+            <h3>O'zbekistondagi eng yaxshi elektron kitoblar platformasi</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur ipsum adipisicing elit.
-              Dolore, sequi corrupti corporis quaerat voluptatem ipsam neque
-              labore modi autem, saepe numquam quod reprehenderit rem? Tempora
-              aut soluta odio corporis nihil!
+              Bizning platformamizda 10,000 dan ortiq turli janrlardagi elektron kitoblarni topishingiz mumkin. 
+              Har qandae istakka mos ravishda filtrlash tizimi va qulay interfeys sizga yoqadi.
             </p>
             <p>
-              Lorem ipsum dolor sit amet, consectetur ipsum adipisicing elit.
-              Aperiam, nemo. Sit porro illo eos cumque deleniti iste alias, eum
-              natus.
+              Biz doimo yangi kitoblar bilan kutubxonamizni boyitib boramiz va mijozlarimiz uchun eng yaxshi 
+              xizmatni taqdim etishga intilamiz.
             </p>
             <div class="icons-container">
               <div class="icons">
                 <i class="fas fa-shield"></i>
-                <span>xavfsiz yetkazib berish</span>
+                <span>Xavfsiz va tez yetkazib berish</span>
               </div>
               <div class="icons">
                 <i class="fas fa-wallet"></i>
-                <span>oson to'lov</span>
+                <span>Har qandae to'lov usuli</span>
               </div>
               <div class="icons">
                 <i class="fas fa-headset"></i>
-                <span>24/7 xizmat</span>
+                <span>24/7 qo'llab-quvvatlash</span>
               </div>
             </div>
             <a href="./404Error.html" class="btn">batafsil</a>
@@ -90,7 +85,7 @@
 
     <!-- Popular Book Start -->
     <section class="populer" id="populer">
-      <h1 class="heading"><span> Popular Books </span></h1>
+      <h1 class="heading"><span> Mashhur Kitoblar </span></h1>
       <div class="swiper populer-slider">
         <div class="swiper-wrapper">
           {% for book in books_popular %}
@@ -105,8 +100,8 @@
             </div>
             <div class="content">
               <h3>{{book_p.title}}</h3>
-              <div class="price">Likes Count {{ book.likes_count }}<span>Downloads: {{ book.downloads_count }}</span></div>
-              <a href="{% url 'book_detail' book.id %}" class="btn">Views</a>
+              <div class="price">Yoqtirishlar {{ book.likes_count }}<span>Yuklab olishlar: {{ book.downloads_count }}</span></div>
+              <a href="{% url 'book_detail' book.id %}" class="btn">Ko'rish</a>
             </div>
           </div>
           {% endfor %}
@@ -120,36 +115,32 @@
     <!-- Member Start -->
     <section id="member" class="member">
       <div class="container">
-        <h1>BECOME A MEMBER!</h1>
+        <h1>A'ZO BO'LING!</h1>
         <div class="row">
           <div class="content">
             <h3>
-              Join Our <span>Member</span> And<br />
-              Get Notify For <span>New Updates!</span>
+              Bizning <span>A'zolarimiz</span> safiga qo'shiling va<br />
+              <span>Yangiliklardan</span> xabardor bo'ling!
             </h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur ipsum adipisicing elit.
-              Dolore, sequi corrupti corporis quaerat voluptatem ipsam neque
-              labore modi autem, saepe numquam quod reprehenderit rem? Tempora
-              aut soluta odio corporis nihil!
+              A'zo bo'lish orqali siz eksklyuziv chegirmalar, yangi kitoblar haqida birinchi bo'lib xabardor 
+              bo'lish va maxsus takliflar bilan foydalanish imkoniyatiga ega bo'lasiz.
             </p>
             <p>
-              Lorem ipsum dolor, sit amet consectetur ipsum adipisicing elit.
-              consectetur ipsum vero hic adipisci incidunt iste nulla. Lorem
-              ipsum dolor, sit amet consectetur ipsum adipisicing elit.
-              consectetur ipsum verohic.
+              Har oy a'zolarimiz uchun maxsus tanlovlar o'tkazib boriladi va eng faol 
+              o'quvchilarimiz sovg'alar bilan taqdirlanadi.
             </p>
             <form action="">
               <input
                 type="email"
                 name=""
-                placeholder="Enter your email..."
+                placeholder="Elektron pochtangizni kiriting..."
                 id=""
                 class="box"
                 required
               />
-              <input type="submit" value="get notify" class="btn" />
-              <a href="./member.html" class="btn">Join Member</a>
+              <input type="submit" value="Xabardor bo'lish" class="btn" />
+              <a href="./member.html" class="btn">A'zo bo'lish</a>
             </form>
           </div>
           <div class="image">
@@ -162,7 +153,7 @@
 
     <!-- New Book Start -->
     <section class="new" id="new">
-      <h1 class="heading"><span>New Books</span></h1>
+      <h1 class="heading"><span>Yangi Kitoblar</span></h1>
 
       <!-- New Books  Section 1 Starts-->
       <div class="swiper new-slider">
@@ -178,8 +169,8 @@
                 {% endif %}
               </div>
               <div class="content">
-                <h3>New Books</h3>
-                <div class="price">{{ book.likes_count|default:"0" }}</div>
+                <h3>{{ book.title }}</h3>
+                <div class="price">{{ book.likes_count|default:"0" }} yoqtirish</div>
                 <div class="stars">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -191,7 +182,6 @@
             </a>
             {% endif %}
           {% endfor %}
-
         </div>
       </div>
       <!-- New Books Section 1 End -->
@@ -210,8 +200,8 @@
                 {% endif %}
               </div>
               <div class="content">
-                <h3>New Books</h3>
-                <div class="price">{{ book.likes_count|default:"0" }}</div>
+                <h3>{{ book.title }}</h3>
+                <div class="price">{{ book.likes_count|default:"0" }} yoqtirish</div>
                 <div class="stars">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -231,21 +221,19 @@
 
     <!-- Review Start -->
     <section class="reviews" id="reviews">
-      <h1>client's reviews</h1>
+      <h1>Foydalanuvchilar fikrlari</h1>
       <div class="swiper reviews-slider">
         <div class="swiper-wrapper">
           <div class="swiper-slide box">
             <i class="fas fa-quote-left quote"></i>
             <p>
-              Lorem aliasry ipsum dolor sits ametans, consectetur ipsum ipsum
-              adipisicing elitits. Expedita reiciendis itaque placeat thuratu,
-              quasi yiuos repellendus repudiandae deleniti ideas fuga molestiae,
-              alias.
+              Bu platforma haqiqatan ham ajoyib! Kitoblar to'plami juda xilma-xil va qidiruv tizimi qulay.
+              Bir necha oydan beri faol foydalanaman va juda qoniqarli.
             </p>
             <div class="content">
               <div class="info">
-                <div class="name">Thoriq Ali</div>
-                <div class="job">Web Dev</div>
+                <div class="name">Alisher Navoiy</div>
+                <div class="job">Dasturchi</div>
                 <div class="stars">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -262,15 +250,13 @@
           <div class="swiper-slide box">
             <i class="fas fa-quote-left quote"></i>
             <p>
-              Lorem aliasry ipsum dolor sits ametans, consectetur ipsum
-              adipisicing elitits. Expedita reiciendis itaque placeat thuratu,
-              quasi yiuos repellendus repudiandae deleniti ideas fuga molestiae,
-              alias.
+              Elektron kitoblar narxi juda ham qulay va sifatli. Xizmat ko'rsatish tez va samarali.
+              Ayniqsa, yangi chiqqan kitoblarni birinchi bo'lib o'qish imkoniyati ajoyib.
             </p>
             <div class="content">
               <div class="info">
-                <div class="name">Windah Basu</div>
-                <div class="job">YouTuber</div>
+                <div class="name">Zarina Begmatova</div>
+                <div class="job">O'qituvchi</div>
                 <div class="stars">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -288,15 +274,13 @@
           <div class="swiper-slide box">
             <i class="fas fa-quote-left quote"></i>
             <p>
-              Lorem aliasry ipsum dolor sits ametans, consectetur ipsum
-              adipisicing elitits. Expedita reiciendis itaque placeat thuratu,
-              quasi yiuos repellendus repudiandae deleniti ideas fuga molestiae,
-              alias.
+              O'zbek tilidagi elektron kitoblar platformalari orasida eng yaxshisi deb o'ylayman.
+              Interfeys soddaligi va kitoblarning sifatli formati juda yoqadi. Tavsiya etaman!
             </p>
             <div class="content">
               <div class="info">
-                <div class="name">Umar S</div>
-                <div class="job">Programmer</div>
+                <div class="name">Javlon Jorayev</div>
+                <div class="job">Talaba</div>
                 <div class="stars">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -313,15 +297,13 @@
           <div class="swiper-slide box">
             <i class="fas fa-quote-left quote"></i>
             <p>
-              Lorem aliasry ipsum dolor sits ametans, consectetur ipsum
-              adipisicing elitits. Expedita reiciendis itaque placeat thuratu,
-              quasi yiuos repellendus repudiandae deleniti ideas fuga molestiae,
-              alias.
+              Biznes kitoblari bo'limi ayniqsa yaxshi tashkil etilgan. Xalqaro bestsellerlarning 
+              o'zbekcha tarjimalarini topish mumkin. Doimiy mijoz bo'lib qolganman.
             </p>
             <div class="content">
               <div class="info">
-                <div class="name">Budi Bellis</div>
-                <div class="job">Freelancer</div>
+                <div class="name">Dilfuza Rahimova</div>
+                <div class="job">Biznesmen</div>
                 <div class="stars">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -339,15 +321,13 @@
           <div class="swiper-slide box">
             <i class="fas fa-quote-left quote"></i>
             <p>
-              Lorem aliasry ipsum dolor sits ametans, consectetur ipsum
-              adipisicing elitits. Expedita reiciendis itaque placeat thuratu,
-              quasi yiuos repellendus repudiandae deleniti ideas fuga molestiae,
-              alias.
+              Bolalar uchun kitoblar to'plami juda boy va rang-barang. Qizim bu platformani juda yaxshi 
+              ko'radi va har hafta yangi kitob yuklab olamiz. Rahmat yaxshi xizmatingiz uchun!
             </p>
             <div class="content">
               <div class="info">
-                <div class="name">Kristina Bellis</div>
-                <div class="job">Doctor</div>
+                <div class="name">Oygul To'xtayeva</div>
+                <div class="job">Shifokor</div>
                 <div class="stars">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -369,7 +349,7 @@
     <!-- Blogs Start -->
     <section class="blogs" id="blogs">
       <div class="container">
-        <h1 class="heading"><span>Bizning kundalik Kitoblarimiz</span></h1>
+        <h1 class="heading"><span>Bizning kitoblar haqidagi maqolalar</span></h1>
 
         <div class="box-container">
           {% for book in books %}
@@ -380,9 +360,9 @@
             <div class="content">
               <h3>{{book.title}}</h3>
               <p>
-                {{ book.body|safe }}
+                {{ book.body|safe|truncatewords:30 }}
               </p>
-              <a href="{% url 'book_detail' book.id %}" class="btn">read more</a>
+              <a href="{% url 'book_detail' book.id %}" class="btn">Ko'proq o'qish</a>
               <div class="icons">
                 <span> <i class="fas fa-calendar"></i> {{book.created_at}} </span>
                 <span> <i class="fas fa-user"></i> {{book.author}}</span>
@@ -391,7 +371,7 @@
           </div>
           {% endfor %}
         </div>
-        <div id="load-more">load more</div>
+        <div id="load-more">Ko'proq yuklash</div>
       </div>
     </section>
     <!-- Blogs End -->
