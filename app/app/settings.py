@@ -10,10 +10,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default="coding")
 DEBUG = config('DEBUG', default=False, cast=bool)
 # SECURITY WARNING: keep the secret key used in production secret!
-ALLOWED_HOSTS = [
-    ".railway.app",
-    "http://0.0.0.0:8000",
-]
+
+if DEBUG:
+    ALLOWED_HOSTS = [
+        ".railway.app",
+        "http://0.0.0.0:8000",
+    ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.railway.app"
@@ -23,8 +25,7 @@ CSRF_TRUSTED_ORIGINS = [
 CSRF_COOKIE_SECURE=not DEBUG
 SESSION_COOKIE_SECURE=not DEBUG
 
-if DEBUG:
-    ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -50,6 +51,7 @@ LOGOUT_REDIRECT_URL = 'user/login'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #added
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -159,5 +161,19 @@ CKEDITOR_CONFIGS = {
 }
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": BASE_DIR / "media",  # media fayllar saqlanadigan papka
+            "base_url": "/media/",          # media fayllarga URL
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
