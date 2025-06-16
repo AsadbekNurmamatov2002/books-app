@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2025-06-XX XX:XX+0300\n"
+"PO-Revision-Date: 2025-06-15 00:00+0300\n"
+"Last-Translator: VASHE ИМЯ <EMAIL@ADDRESS>\n"
+"Language-Team: Russian <ru@django.org>\n"
+"Language: ru\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: django/contrib/admin/views/main.py:123
+msgid "Log in"
+msgstr "Войти"
+
+#: django/contrib/admin/templates/admin/base.html:45
+msgid "Save"
+msgstr "Сохранить"
+
+#: django/contrib/admin/actions.py:56
+msgid "Are you sure?"
+msgstr "Вы уверены?"
+
+#: django/core/handlers/exception.py:47
+msgid "Page not found (404)"
+msgstr "Страница не найдена (404)"
+
+#: django/contrib/admin/views/dashboards.py:78
+msgid "View site"
+msgstr "Просмотреть сайт"
+
+#: django/contrib/admin/templates/admin/change_form.html:112
+msgid "History"
+msgstr "История"
+
+#: django/contrib/admin/templates/admin/change_form.html:117
+msgid "View on site"
+msgstr "Просмотреть на сайте"
+
+#: django/contrib/admin/templates/admin/change_list.html:85
+msgid "Filter"
+msgstr "Фильтр"
+
+#: django/contrib/admin/templates/admin/base_site.html:23
+msgid "Django administration"
+msgstr "Администрирование Django"
+
+#: django/contrib/admin/error_log/models.py:90
+msgid "Error Log"
+msgstr "Журнал ошибок"
+
+#: django/contrib/admin/templates/admin/login.html:34
+msgid "Username:"
+msgstr "Имя пользователя:"
+
+#: django/contrib/admin/templates/admin/login.html:37
+msgid "Password:"
+msgstr "Пароль:"
+
+#: django/contrib/admin/templates/admin/base.html:90
+msgid "Delete"
+msgstr "Удалить"
+
+#: django/contrib/admin/templates/admin/base.html:95
+msgid "Change"
+msgstr "Изменить"
+
+#: django/contrib/admin/templates/admin/base.html:100
+msgid "Add"
+msgstr "Добавить"
+
+#: django/contrib/admin/templates/admin/base_list.html:45
+msgid "Actions"
+msgstr "Действия"
+
+#: django/contrib/admin/templates/admin/base_list.html:50
+msgid "Select all"
+msgstr "Выбрать всё"
+
+#: django/contrib/admin/templates/admin/base_list.html:55
+msgid "Deselect all"
+msgstr "Снять выделение"
+
+#: django/contrib/admin/templates/admin/pagination.html:22
+msgid "Page %s of %s"
+msgstr "Страница %s из %s"

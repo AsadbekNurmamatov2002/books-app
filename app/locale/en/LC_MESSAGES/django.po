@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2025-06-XX XX:XX+0000\n"
+"PO-Revision-Date: 2025-06-15 00:00+0000\n"
+"Last-Translator: YOU <EMAIL@ADDRESS>\n"
+"Language-Team: English <en@django.org>\n"
+"Language: en\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: django/contrib/admin/views/main.py:123
+msgid "Log in"
+msgstr "Log in"
+
+#: django/contrib/admin/templates/admin/base.html:45
+msgid "Save"
+msgstr "Save"
+
+#: django/contrib/admin/actions.py:56
+msgid "Are you sure?"
+msgstr "Are you sure?"
+
+#: django/core/handlers/exception.py:47
+msgid "Page not found (404)"
+msgstr "Page not found (404)"
+
+#: django/contrib/admin/views/dashboards.py:78
+msgid "View site"
+msgstr "View site"
+
+#: django/contrib/admin/templates/admin/change_form.html:112
+msgid "History"
+msgstr "History"
+
+#: django/contrib/admin/templates/admin/change_form.html:117
+msgid "View on site"
+msgstr "View on site"
+
+#: django/contrib/admin/templates/admin/change_list.html:85
+msgid "Filter"
+msgstr "Filter"
+
+#: django/contrib/admin/templates/admin/base_site.html:23
+msgid "Django administration"
+msgstr "Django administration"
+
+#: django/contrib/admin/error_log/models.py:90
+msgid "Error Log"
+msgstr "Error Log"
+
+#: django/contrib/admin/templates/admin/login.html:34
+msgid "Username:"
+msgstr "Username:"
+
+#: django/contrib/admin/templates/admin/login.html:37
+msgid "Password:"
+msgstr "Password:"
+
+#: django/contrib/admin/templates/admin/base.html:90
+msgid "Delete"
+msgstr "Delete"
+
+#: django/contrib/admin/templates/admin/base.html:95
+msgid "Change"
+msgstr "Change"
+
+#: django/contrib/admin/templates/admin/base.html:100
+msgid "Add"
+msgstr "Add"
+
+#: django/contrib/admin/templates/admin/base_list.html:45
+msgid "Actions"
+msgstr "Actions"
+
+#: django/contrib/admin/templates/admin/base_list.html:50
+msgid "Select all"
+msgstr "Select all"
+
+#: django/contrib/admin/templates/admin/base_list.html:55
+msgid "Deselect all"
+msgstr "Deselect all"
+
+#: django/contrib/admin/templates/admin/pagination.html:22
+msgid "Page %s of %s"
+msgstr "Page %s of %s"
